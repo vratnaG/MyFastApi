@@ -1,10 +1,18 @@
 from fastapi import FastAPI
-
-from .routes.student import router as StudentRouter
+from fastapi.middleware.cors import CORSMiddleware
+from .routes.lotery import router as LoteryRouter
 
 app = FastAPI()
 
-app.include_router(StudentRouter, tags=["Student"], prefix="/student")
+app.include_router(LoteryRouter, tags=["Lotery"], prefix="/lotery")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/", tags=["Root"])
